@@ -3,8 +3,6 @@ package webgl
 import (
 	"errors"
 	"syscall/js"
-
-	"github.com/seqsense/pcgol/mat"
 )
 
 var (
@@ -305,18 +303,20 @@ func (gl *WebGL) EnableVertexAttribArray(i int) {
 	gl.gl.Call("enableVertexAttribArray", i)
 }
 
-func (gl *WebGL) UniformMatrix4fv(loc Location, transpose bool, mat mat.Mat4) {
+func (gl *WebGL) UniformMatrix4fv(loc Location, transpose bool, mat Mat4) {
+	f := mat.Floats()
 	matJS := float32Array.Call("of",
-		mat[0], mat[1], mat[2], mat[3],
-		mat[4], mat[5], mat[6], mat[7],
-		mat[8], mat[9], mat[10], mat[11],
-		mat[12], mat[13], mat[14], mat[15],
+		f[0], f[1], f[2], f[3],
+		f[4], f[5], f[6], f[7],
+		f[8], f[9], f[10], f[11],
+		f[12], f[13], f[14], f[15],
 	)
 	gl.gl.Call("uniformMatrix4fv", js.Value(loc), transpose, matJS)
 }
 
-func (gl *WebGL) Uniform3fv(loc Location, v mat.Vec3) {
-	vecJS := float32Array.Call("of", v[0], v[1], v[2])
+func (gl *WebGL) Uniform3fv(loc Location, v Vec3) {
+	f := v.Floats()
+	vecJS := float32Array.Call("of", f[0], f[1], f[2])
 	gl.gl.Call("uniform3fv", js.Value(loc), vecJS)
 }
 
