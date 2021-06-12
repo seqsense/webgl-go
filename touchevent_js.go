@@ -19,9 +19,7 @@ type TouchEvent struct {
 func parseTouchEvent(event js.Value) TouchEvent {
 	return TouchEvent{
 		UIEvent: UIEvent{
-			Event: Event{
-				event: event,
-			},
+			Event: parseEvent(event),
 		},
 		ChangedTouches: parseTouches(event.Get("changedTouches")),
 		TargetTouches:  parseTouches(event.Get("targetTouches")),

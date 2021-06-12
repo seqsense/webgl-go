@@ -11,7 +11,7 @@ type WebGLContextEvent struct {
 
 func parseWebGLContextEvent(event js.Value) WebGLContextEvent {
 	return WebGLContextEvent{
-		Event:         Event{event: event},
+		Event:         parseEvent(event),
 		StatusMessage: event.Get("statusMessage").String(),
 	}
 }

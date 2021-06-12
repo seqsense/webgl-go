@@ -9,7 +9,8 @@ type UIEvent struct {
 }
 
 type Event struct {
-	event js.Value
+	event  js.Value
+	Target js.Value
 }
 
 func (e Event) PreventDefault() {
@@ -23,5 +24,12 @@ func (e Event) StopPropagation() {
 func NewEvent(typ string) Event {
 	return Event{
 		event: js.Global().Get("Event").New(typ),
+	}
+}
+
+func parseEvent(event js.Value) Event {
+	return Event{
+		event:  event,
+		Target: event.Get("target"),
 	}
 }

@@ -16,9 +16,7 @@ type KeyboardEvent struct {
 func parseKeyboardEvent(event js.Value) KeyboardEvent {
 	return KeyboardEvent{
 		UIEvent: UIEvent{
-			Event: Event{
-				event: event,
-			},
+			Event: parseEvent(event),
 		},
 		Code:     event.Get("code").String(),
 		Key:      event.Get("key").String(),

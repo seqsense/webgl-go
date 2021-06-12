@@ -27,9 +27,7 @@ func parseMouseEvent(event js.Value) MouseEvent {
 	}
 	return MouseEvent{
 		UIEvent: UIEvent{
-			Event: Event{
-				event: event,
-			},
+			Event: parseEvent(event),
 		},
 		OffsetX:  event.Get("offsetX").Int(),
 		OffsetY:  event.Get("offsetY").Int(),
