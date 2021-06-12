@@ -125,6 +125,31 @@ func (c Canvas) onPointer(name string, cb func(PointerEvent)) {
 	)
 }
 
+func (c Canvas) OnTouchStart(cb func(TouchEvent)) {
+	c.onTouch("touchstart", cb)
+}
+
+func (c Canvas) OnTouchEnd(cb func(TouchEvent)) {
+	c.onTouch("touchend", cb)
+}
+
+func (c Canvas) OnTouchMove(cb func(TouchEvent)) {
+	c.onTouch("touchmove", cb)
+}
+
+func (c Canvas) OnTouchCancel(cb func(TouchEvent)) {
+	c.onTouch("touchcancel", cb)
+}
+
+func (c Canvas) onTouch(name string, cb func(TouchEvent)) {
+	js.Value(c).Call("addEventListener", name,
+		js.FuncOf(func(this js.Value, args []js.Value) interface{} {
+			cb(parseTouchEvent(args[0]))
+			return nil
+		}),
+	)
+}
+
 func (c Canvas) OnWebGLContextLost(cb func(WebGLContextEvent)) {
 	c.onWebGLContext("webglcontextlost", cb)
 }
