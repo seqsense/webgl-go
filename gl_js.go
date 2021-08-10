@@ -73,7 +73,7 @@ type WebGL struct {
 
 	TEXTURE0 TextureNumber
 
-	ZERO, ONE, SRC_ALPHA, ONE_MINUS_SRC_ALPHA BlendFactor
+	ZERO, ONE, SRC_ALPHA, DST_ALPHA, ONE_MINUS_SRC_ALPHA, ONE_MINUS_DST_ALPHA, SRC_COLOR, DST_COLOR, SRC_ALPHA_SATURATE BlendFactor
 }
 
 func New(canvas js.Value) (*WebGL, error) {
@@ -151,7 +151,12 @@ func New(canvas js.Value) (*WebGL, error) {
 		ZERO:                BlendFactor(gl.Get("ZERO").Int()),
 		ONE:                 BlendFactor(gl.Get("ONE").Int()),
 		SRC_ALPHA:           BlendFactor(gl.Get("SRC_ALPHA").Int()),
+		DST_ALPHA:           BlendFactor(gl.Get("DST_ALPHA").Int()),
 		ONE_MINUS_SRC_ALPHA: BlendFactor(gl.Get("ONE_MINUS_SRC_ALPHA").Int()),
+		ONE_MINUS_DST_ALPHA: BlendFactor(gl.Get("ONE_MINUS_DST_ALPHA").Int()),
+		SRC_COLOR:           BlendFactor(gl.Get("SRC_COLOR").Int()),
+		DST_COLOR:           BlendFactor(gl.Get("DST_COLOR").Int()),
+		SRC_ALPHA_SATURATE:  BlendFactor(gl.Get("SRC_ALPHA_SATURATE").Int()),
 
 		INTERLEAVED_ATTRIBS: BufferMode(gl.Get("INTERLEAVED_ATTRIBS").Int()),
 		SEPARATE_ATTRIBS:    BufferMode(gl.Get("SEPARATE_ATTRIBS").Int()),
