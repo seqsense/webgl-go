@@ -309,6 +309,10 @@ func (gl *WebGL) EnableVertexAttribArray(i int) {
 	gl.gl.Call("enableVertexAttribArray", i)
 }
 
+func (gl *WebGL) DisableVertexAttribArray(i int) {
+	gl.gl.Call("disableVertexAttribArray", i)
+}
+
 func (gl *WebGL) UniformMatrix4fv(loc Location, transpose bool, mat Mat4) {
 	f := mat.Floats()
 	matJS := float32Array.Call("of",
