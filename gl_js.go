@@ -51,7 +51,7 @@ type WebGL struct {
 	VERTEX_SHADER, FRAGMENT_SHADER                                                ShaderType
 	ARRAY_BUFFER, TRANSFORM_FEEDBACK_BUFFER, UNIFORM_BUFFER                       BufferType
 	STATIC_DRAW, DYNAMIC_COPY, STREAM_READ                                        BufferUsage
-	DEPTH_TEST, BLEND, RASTERIZER_DISCARD                                         Capacity
+	DEPTH_TEST, BLEND, POLYGON_OFFSET_FILL, RASTERIZER_DISCARD                    Capacity
 	LEQUAL                                                                        DepthFunc
 	FLOAT, UNSIGNED_BYTE, UNSIGNED_SHORT, UNSIGNED_INT                            Type
 	COLOR_BUFFER_BIT, DEPTH_BUFFER_BIT, STENCIL_BUFFER_BIT                        BufferMask
@@ -105,9 +105,10 @@ func New(canvas js.Value) (*WebGL, error) {
 		DYNAMIC_COPY: BufferUsage(gl.Get("DYNAMIC_COPY").Int()),
 		STREAM_READ:  BufferUsage(gl.Get("STREAM_READ").Int()),
 
-		DEPTH_TEST:         Capacity(gl.Get("DEPTH_TEST").Int()),
-		BLEND:              Capacity(gl.Get("BLEND").Int()),
-		RASTERIZER_DISCARD: Capacity(gl.Get("RASTERIZER_DISCARD").Int()),
+		DEPTH_TEST:          Capacity(gl.Get("DEPTH_TEST").Int()),
+		BLEND:               Capacity(gl.Get("BLEND").Int()),
+		POLYGON_OFFSET_FILL: Capacity(gl.Get("POLYGON_OFFSET_FILL").Int()),
+		RASTERIZER_DISCARD:  Capacity(gl.Get("RASTERIZER_DISCARD").Int()),
 
 		LEQUAL: DepthFunc(gl.Get("LEQUAL").Int()),
 
@@ -415,4 +416,8 @@ func (gl *WebGL) Finish() {
 
 func (gl *WebGL) IsContextLost() bool {
 	return gl.gl.Call("isContextLost").Bool()
+}
+
+func (gl *WebGL) PolygonOffset(factor, units float32) {
+	gl.gl.Call("polygonOffset", factor, units)
 }
