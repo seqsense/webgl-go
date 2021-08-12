@@ -430,3 +430,19 @@ func (gl *WebGL) IsContextLost() bool {
 func (gl *WebGL) PolygonOffset(factor, units float32) {
 	gl.gl.Call("polygonOffset", factor, units)
 }
+
+func (gl *WebGL) JS() js.Value {
+	return gl.gl
+}
+
+func (gl *WebGL) GetExtension(name string) (js.Value, bool) {
+	ret := gl.gl.Call("getExtension", name)
+	if ret.IsNull() {
+		return js.Value{}, false
+	}
+	return ret, true
+}
+
+func (gl *WebGL) GetParameter(id int) js.Value {
+	return gl.gl.Call("getParameter", id)
+}
