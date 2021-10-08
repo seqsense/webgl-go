@@ -209,6 +209,10 @@ func (gl *WebGL) GetShaderParameter(s Shader, param ShaderParameter) interface{}
 	return nil
 }
 
+func (gl *WebGL) GetShaderInfoLog(s Shader) string {
+	return gl.gl.Call("getShaderInfoLog", js.Value(s)).String()
+}
+
 func (gl *WebGL) CreateProgram() Program {
 	return Program(gl.gl.Call("createProgram"))
 }
