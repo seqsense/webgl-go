@@ -12,6 +12,10 @@ type Event struct {
 	event js.Value
 }
 
+func (e Event) JS() js.Value {
+	return e.event
+}
+
 func (e Event) PreventDefault() {
 	e.event.Call("preventDefault")
 }
