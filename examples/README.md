@@ -1,4 +1,4 @@
-# Simple examples of webgl application using `webgl-go`
+# Simple examples using `webgl-go`
 
 ## A colored triangle
 
