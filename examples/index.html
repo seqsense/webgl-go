@@ -19,7 +19,7 @@
 
       const go = new Go();
       let mod, inst;
-      WebAssembly.instantiateStreaming(fetch("triangle.wasm"), go.importObject).then(
+      WebAssembly.instantiateStreaming(fetch("demo.wasm"), go.importObject).then(
         async result => {
           mod = result.module;
           inst = result.instance;

@@ -11,7 +11,7 @@ cp "$(go env GOROOT)/misc/wasm/wasm_exec.js" .
 - Compile the code
 
 ```
-GOARCH=wasm GOOS=js go build -o triangle.wasm triangle.go shader_helpers.go
+GOARCH=wasm GOOS=js go build -o demo.wasm demos/triangle.go demos/shader_helpers.go
 ```
 
 - Serve the web page
