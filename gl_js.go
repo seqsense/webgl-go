@@ -351,6 +351,10 @@ func (gl *WebGL) DrawArrays(mode DrawMode, i, n int) {
 	gl.gl.Call("drawArrays", int(mode), i, n)
 }
 
+func (gl *WebGL) DrawElements(mode DrawMode, count int, typ Type, offset int) {
+	gl.gl.Call("drawElements", int(mode), count, int(typ), offset)
+}
+
 func (gl *WebGL) Viewport(x1, y1, x2, y2 int) {
 	gl.gl.Call("viewport", x1, y1, x2, y2)
 }
