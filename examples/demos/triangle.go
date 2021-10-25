@@ -90,7 +90,6 @@ func run() {
 }
 
 func main() {
-	c := make(chan struct{}, 0)
 	go run()
-	<-c
+	select {}
 }
