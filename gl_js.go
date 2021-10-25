@@ -49,7 +49,7 @@ type WebGL struct {
 	INVALID_FRAMEBUFFER_OPERATION, OUT_OF_MEMORY, CONTEXT_LOST_WEBGL ErrorNumber
 
 	VERTEX_SHADER, FRAGMENT_SHADER                                                ShaderType
-	ARRAY_BUFFER, TRANSFORM_FEEDBACK_BUFFER, UNIFORM_BUFFER                       BufferType
+	ARRAY_BUFFER, ELEMENT_ARRAY_BUFFER, TRANSFORM_FEEDBACK_BUFFER, UNIFORM_BUFFER BufferType
 	STATIC_DRAW, DYNAMIC_COPY, STREAM_READ                                        BufferUsage
 	DEPTH_TEST, BLEND, POLYGON_OFFSET_FILL, RASTERIZER_DISCARD                    Capacity
 	LEQUAL                                                                        DepthFunc
@@ -98,6 +98,7 @@ func New(canvas js.Value) (*WebGL, error) {
 		FRAGMENT_SHADER: ShaderType(gl.Get("FRAGMENT_SHADER").Int()),
 
 		ARRAY_BUFFER:              BufferType(gl.Get("ARRAY_BUFFER").Int()),
+		ELEMENT_ARRAY_BUFFER:      BufferType(gl.Get("ELEMENT_ARRAY_BUFFER").Int()),
 		TRANSFORM_FEEDBACK_BUFFER: BufferType(gl.Get("TRANSFORM_FEEDBACK_BUFFER").Int()),
 		UNIFORM_BUFFER:            BufferType(gl.Get("UNIFORM_BUFFER").Int()),
 
@@ -348,6 +349,10 @@ func (gl *WebGL) Clear(mask BufferMask) {
 
 func (gl *WebGL) DrawArrays(mode DrawMode, i, n int) {
 	gl.gl.Call("drawArrays", int(mode), i, n)
+}
+
+func (gl *WebGL) DrawElements(mode DrawMode, count int, typ Type, offset int) {
+	gl.gl.Call("drawElements", int(mode), count, int(typ), offset)
 }
 
 func (gl *WebGL) Viewport(x1, y1, x2, y2 int) {

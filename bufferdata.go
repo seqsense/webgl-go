@@ -19,3 +19,9 @@ func (b ByteArrayBuffer) Bytes() []byte {
 func (b ByteArrayBuffer) UInt32Slice() []uint32 {
 	return byteSliceAsUInt32Slice(b)
 }
+
+type Uint16ArrayBuffer []uint16
+
+func (b Uint16ArrayBuffer) Bytes() []byte {
+	return uint16SliceAsByteSlice([]uint16(b))
+}
