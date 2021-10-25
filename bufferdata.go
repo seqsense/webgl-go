@@ -1,10 +1,5 @@
 package webgl
 
-import (
-	"reflect"
-	"unsafe"
-)
-
 type BufferData interface {
 	Bytes() []byte
 }
@@ -28,14 +23,5 @@ func (b ByteArrayBuffer) UInt32Slice() []uint32 {
 type Uint16ArrayBuffer []uint16
 
 func (b Uint16ArrayBuffer) Bytes() []byte {
-	n := 2 * len(b)
-
-	up := unsafe.Pointer(&(b[0]))
-	pi := (*[1]byte)(up)
-	buf := (*pi)[:]
-	sh := (*reflect.SliceHeader)(unsafe.Pointer(&buf))
-	sh.Len = n
-	sh.Cap = n
-
-	return buf
+	return uint16SliceAsByteSlice([]uint16(b))
 }
