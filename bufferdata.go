@@ -1,6 +1,9 @@
 package webgl
 
-import "encoding/binary"
+import (
+	"reflect"
+	"unsafe"
+)
 
 type BufferData interface {
 	Bytes() []byte
@@ -25,9 +28,14 @@ func (b ByteArrayBuffer) UInt32Slice() []uint32 {
 type Uint16ArrayBuffer []uint16
 
 func (b Uint16ArrayBuffer) Bytes() []byte {
-	buf := make([]byte, len(b)*2)
-	for i, b := range b {
-		binary.LittleEndian.PutUint16(buf[i*2:], b)
-	}
+	n := 2 * len(b)
+
+	up := unsafe.Pointer(&(b[0]))
+	pi := (*[1]byte)(up)
+	buf := (*pi)[:]
+	sh := (*reflect.SliceHeader)(unsafe.Pointer(&buf))
+	sh.Len = n
+	sh.Cap = n
+
 	return buf
 }
