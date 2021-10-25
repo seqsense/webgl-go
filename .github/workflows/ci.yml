@@ -28,7 +28,7 @@ jobs:
           mkdir -p ${HOME}/.local/bin
           wget https://raw.githubusercontent.com/golang/go/go${{ matrix.go }}/misc/wasm/go_js_wasm_exec \
             -O ${HOME}/.local/bin/go_js_wasm_exec
-          wget https://raw.githubusercontent.com/golang/go/go${{ matrix.go  }}/misc/wasm/wasm_exec.js \
+          wget https://raw.githubusercontent.com/golang/go/go${{ matrix.go }}/misc/wasm/wasm_exec.js \
             -O ${HOME}/.local/bin/wasm_exec.js
           chmod +x ${HOME}/.local/bin/go_js_wasm_exec
       - name: Run go test
