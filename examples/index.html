@@ -20,11 +20,7 @@
       const go = new Go();
       let mod, inst;
       WebAssembly.instantiateStreaming(fetch("demo.wasm"), go.importObject).then(
-        async result => {
-          mod = result.module;
-          inst = result.instance;
-          await go.run(inst);
-        }
+        (result) => go.run(result.instance)
       );
     </script>
 
