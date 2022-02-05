@@ -57,11 +57,11 @@ func run() {
 	gl.BufferData(gl.ARRAY_BUFFER, webgl.Float32ArrayBuffer(colors), gl.STATIC_DRAW)
 
 	var vs, fs webgl.Shader
-	if vs, err = initVertexShader(gl, vsSource); err != nil {
+	if vs, err = initShader(gl, vsSource, gl.VERTEX_SHADER); err != nil {
 		panic(err)
 	}
 
-	if fs, err = initFragmentShader(gl, fsSource); err != nil {
+	if fs, err = initShader(gl, fsSource, gl.FRAGMENT_SHADER); err != nil {
 		panic(err)
 	}
 
