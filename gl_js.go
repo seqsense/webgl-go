@@ -376,6 +376,12 @@ func (gl *WebGL) TexImage2D(texType TextureType, level int, internalFmt, fmt Pix
 	gl.gl.Call("texImage2D", int(texType), level, int(internalFmt), int(fmt), int(typ), img)
 }
 
+func (gl *WebGL) TexImage2D2(texType TextureType, level int, internalFmt PixelFormat, width, height, border int, fmt PixelFormat, typ Type, data []uint8) {
+	dataJS := uint8Array.New(len(data))
+	js.CopyBytesToJS(dataJS, data)
+	gl.gl.Call("texImage2D", int(texType), level, int(internalFmt), width, height, border, int(fmt), int(typ), dataJS)
+}
+
 func (gl *WebGL) TexParameteri(texType TextureType, param TextureParameter, val interface{}) {
 	gl.gl.Call("texParameteri", int(texType), int(param), val)
 }
