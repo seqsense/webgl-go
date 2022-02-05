@@ -1,7 +1,5 @@
 # Simple examples using `webgl-go`
 
-## A colored triangle
-
 - Copy `wasm_exec.js` from the standard `Go` installation in this folder (only once).
 
     ```
@@ -10,8 +8,16 @@
 
 - Compile the code
 
+  - A colored triangle
+
     ```
     GOARCH=wasm GOOS=js go build -o demo.wasm demos/triangle.go demos/shader_helpers.go
+    ```
+
+  - A colored triangle using a texture generated from data
+
+    ```
+    GOARCH=wasm GOOS=js go build -o demo.wasm demos/generate_texture.go demos/shader_helpers.go
     ```
 
 - Serve the web page
