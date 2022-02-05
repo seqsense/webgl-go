@@ -84,7 +84,6 @@ func run() {
 
 	gl.ClearColor(0.5, 0.5, 0.5, 0.9)
 	gl.Clear(gl.COLOR_BUFFER_BIT)
-	gl.Enable(gl.DEPTH_TEST)
 	gl.Viewport(0, 0, width, height)
 	gl.DrawArrays(gl.TRIANGLES, 0, len(vertices)/3)
 }
