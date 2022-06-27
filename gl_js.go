@@ -339,6 +339,10 @@ func (gl *WebGL) Uniform1i(loc Location, i int) {
 	gl.gl.Call("uniform1i", js.Value(loc), i)
 }
 
+func (gl *WebGL) Uniform1ui(loc Location, i uint) {
+	gl.gl.Call("uniform1ui", js.Value(loc), i)
+}
+
 func (gl *WebGL) Uniform1f(loc Location, i float32) {
 	gl.gl.Call("uniform1f", js.Value(loc), i)
 }
