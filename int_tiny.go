@@ -1,5 +1,5 @@
-//go:build !tiny
-// +build !tiny
+//go:build tiny
+// +build tiny
 
 package webgl
 
@@ -9,7 +9,8 @@ import (
 )
 
 func byteSliceAsUInt32Slice(bytes []byte) []uint32 {
-	n := len(bytes) / 4
+	l := len(bytes) / 4
+	n := uintptr(unsafe.Pointer(&l))
 
 	up := unsafe.Pointer(&(bytes[0]))
 	pi := (*[1]uint32)(up)
@@ -22,7 +23,8 @@ func byteSliceAsUInt32Slice(bytes []byte) []uint32 {
 }
 
 func uint16SliceAsByteSlice(b []uint16) []byte {
-	n := 2 * len(b)
+	l := 2 * len(b)
+	n := uintptr(unsafe.Pointer(&l))
 
 	up := unsafe.Pointer(&(b[0]))
 	pi := (*[1]byte)(up)

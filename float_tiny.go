@@ -1,5 +1,5 @@
-//go:build !tiny
-// +build !tiny
+//go:build tiny
+// +build tiny
 
 package webgl
 
@@ -9,7 +9,8 @@ import (
 )
 
 func float32SliceAsByteSlice(floats []float32) []byte {
-	n := 4 * len(floats)
+	l := 4 * len(floats)
+	n := uintptr(unsafe.Pointer(&l))
 
 	up := unsafe.Pointer(&(floats[0]))
 	pi := (*[1]byte)(up)
