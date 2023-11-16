@@ -10,24 +10,19 @@ import (
 	webgl "github.com/seqsense/webgl-go"
 )
 
-func initVertexShader(gl *webgl.WebGL, src string) (webgl.Shader, error) {
-	s := gl.CreateShader(gl.VERTEX_SHADER)
+func initShader(gl *webgl.WebGL, src string, sType webgl.ShaderType) (webgl.Shader, error) {
+	s := gl.CreateShader(sType)
 	gl.ShaderSource(s, src)
 	gl.CompileShader(s)
 	if !gl.GetShaderParameter(s, gl.COMPILE_STATUS).(bool) {
 		compilationLog := gl.GetShaderInfoLog(s)
-		return webgl.Shader(js.Null()), fmt.Errorf("compile failed (VERTEX_SHADER) %v", compilationLog)
-	}
-	return s, nil
-}
-
-func initFragmentShader(gl *webgl.WebGL, src string) (webgl.Shader, error) {
-	s := gl.CreateShader(gl.FRAGMENT_SHADER)
-	gl.ShaderSource(s, src)
-	gl.CompileShader(s)
-	if !gl.GetShaderParameter(s, gl.COMPILE_STATUS).(bool) {
-		compilationLog := gl.GetShaderInfoLog(s)
-		return webgl.Shader(js.Null()), fmt.Errorf("compile failed (FRAGMENT_SHADER) %v", compilationLog)
+		var sTypeStr string
+		if sType == gl.VERTEX_SHADER {
+			sTypeStr = "VERTEX_SHADER"
+		} else {
+			sTypeStr = "FRAGMENT_SHADER"
+		}
+		return webgl.Shader(js.Null()), fmt.Errorf("compile failed (%s) %v", sTypeStr, compilationLog)
 	}
 	return s, nil
 }
