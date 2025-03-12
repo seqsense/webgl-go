@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         go:
-          - '1.15' # oldest supported
+          - '1.16' # oldest supported
           - '1.23' # oldstable
           - '1.24' # stable
     steps:
@@ -45,7 +45,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.15' # oldest supported
+          go-version: '1.16' # oldest supported
       - name: Check tidied
         run: |
           go mod download
