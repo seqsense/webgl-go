@@ -14,8 +14,9 @@ jobs:
       fail-fast: false
       matrix:
         go:
-          - '1.15'
-          - '1.16'
+          - '1.16' # oldest supported
+          - '1.23' # oldstable
+          - '1.24' # stable
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,11 +26,15 @@ jobs:
           go-version: ${{ matrix.go }}
       - name: Get go_js_wasm_exec
         run: |
+          base_url=https://raw.githubusercontent.com/golang/go/refs/heads/release-branch.go${{ matrix.go }}
+          if [ $(echo -e "${{ matrix.go }}\n1.24" | sort -V | head -n1) = '1.24' ]; then
+            base_url=${base_url}/lib # >= 1.24
+          else
+            base_url=${base_url}/misc # < 1.24
+          fi
           mkdir -p ${HOME}/.local/bin
-          wget https://raw.githubusercontent.com/golang/go/go${{ matrix.go }}/misc/wasm/go_js_wasm_exec \
-            -O ${HOME}/.local/bin/go_js_wasm_exec
-          wget https://raw.githubusercontent.com/golang/go/go${{ matrix.go }}/misc/wasm/wasm_exec.js \
-            -O ${HOME}/.local/bin/wasm_exec.js
+          wget ${base_url}/wasm/go_js_wasm_exec -O ${HOME}/.local/bin/go_js_wasm_exec
+          wget ${base_url}/wasm/wasm_exec.js -O ${HOME}/.local/bin/wasm_exec.js
           chmod +x ${HOME}/.local/bin/go_js_wasm_exec
       - name: Run go test
         run: |
@@ -44,7 +49,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.16'
+          go-version: '1.16' # oldest supported
       - name: Check tidied
         run: |
           go mod download
